@@ -1,0 +1,8 @@
+@reboot /usr/bin/flock -n /var/lock/toad.lock \
+  /usr/local/bin/python3 -u /toad/src/main.py
+0 * * * * /usr/bin/flock -n /var/lock/toad.lock \
+  /usr/local/bin/python3 -u /toad/src/main.py \
+  || echo "$(date) scraper already running" > /dev/stderr
+1-59 * * * * /usr/bin/flock -n /var/lock/toad.lock \
+  /usr/local/bin/python3 -u /toad/src/main.py --mode=slots \
+  || echo "$(date) slot scraper skipped (lock held)" > /dev/stderr

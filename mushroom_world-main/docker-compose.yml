@@ -1,0 +1,135 @@
+name: mushroom_world
+
+services:
+    luigi:
+        container_name: luigi
+        build:
+            context: luigi
+            dockerfile: Dockerfile
+        env_file: .env
+        environment:
+            - USER_CREATE_TOKEN=${USER_CREATE_TOKEN}
+            - USER_UPDATE_TOKEN=${USER_UPDATE_TOKEN}
+            - USER_ALUMNIZE_TOKEN=${USER_ALUMNIZE_TOKEN}
+            - TEAM_CREATE_TOKEN=${TEAM_CREATE_TOKEN}
+            - SCALE_TEAM_CREATE_TOKEN=${SCALE_TEAM_CREATE_TOKEN}
+            - SCALE_TEAM_UPDATE_TOKEN=${SCALE_TEAM_UPDATE_TOKEN}
+            - SCALE_TEAM_DESTROY_TOKEN=${SCALE_TEAM_DESTROY_TOKEN}
+            - LOCATION_CREATE_TOKEN=${LOCATION_CREATE_TOKEN}
+            - LOCATION_CLOSE_TOKEN=${LOCATION_CLOSE_TOKEN}l
+        restart: always
+        networks:
+            - main
+        ports:
+            - ${LUIGI_PORT:-4200}:4200
+        depends_on:
+            mario:
+                condition: service_healthy
+            yoshi:
+                condition: service_healthy
+    toad:
+        container_name: toad
+        build:
+            context: toad
+            dockerfile: Dockerfile
+        env_file: .env
+        environment:
+            - MAX_REQUESTS_PER_SECOND=${MAX_REQUESTS_PER_SECOND:-2}
+            - INTRA_UID=${INTRA_UID}
+            - INTRA_SECRET=${INTRA_SECRET}
+        restart: always
+        volumes:
+            - toad_sync:/toad/sync
+        networks:
+            - main
+        depends_on:
+            yoshi:
+                condition: service_healthy
+    mario:
+        container_name: mario
+        build:
+            context: mario
+            dockerfile: Dockerfile
+        env_file: .env
+        environment:
+            - KMB0T_AUTH_TOKEN=${KMB0T_AUTH_TOKEN}
+            - YOSHI_URL=http://yoshi:3000
+            - KMB0T_URL=https://webhook.42mulhouse.fr
+        restart: always
+        healthcheck:
+            test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3002/health || exit 1"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 30s
+        networks:
+            - main
+        expose:
+            - 3002
+        depends_on:
+            yoshi:
+                condition: service_healthy
+    yoshi:
+        container_name: yoshi
+        build:
+            context: yoshi
+            dockerfile: Dockerfile
+        env_file: .env
+        environment:
+            - DB_USER=${DB_USER}
+            - DB_PASS=${DB_PASS}
+            - DB_NAME=${DB_NAME}
+            - DB_PORT=27017
+        restart: always
+        healthcheck:
+            test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 30s
+        networks:
+            - main
+        expose:
+            - 3000
+        depends_on:
+            peach:
+                condition: service_healthy
+
+    peach:
+        container_name: peach
+        build:
+            context: peach
+            dockerfile: Dockerfile
+        env_file: .env
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
+            - MONGO_INITDB_ROOT_PASSWORD=${DB_PASS}
+            - MONGO_INITDB_DATABASE=${DB_NAME}
+        restart: always
+        healthcheck:
+            test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 30s
+        volumes:
+            - peach_data:/data/db
+            - peach_config:/data/configdb
+        networks:
+            - main
+        expose:
+            - 27017
+
+volumes:
+    # toad
+    toad_sync:
+        name: toad_sync
+    # peach
+    peach_data:
+        name: peach_data
+    peach_config:
+        name: peach_config
+
+networks:
+    main:
+        driver: bridge
