@@ -1,0 +1,32 @@
+kmb0t:
+  script:
+    - cd /opt/KMb0t
+    - git checkout .
+    - git pull
+    - sed -i "s/\$homemaker_token/$homemaker_token/g" data/config.yml
+    - sed -i "s/\$badgeuse_key/$badgeuse_key/g" data/config.yml
+    - sed -i "s/\$intra_api_secret/$intra_api_secret/g" data/config.yml
+    - sed -i "s/\$intra_webhook_close_create/$intra_webhook_close_create/g" data/config.yml
+    - sed -i "s/\$intra_webhook_close_update/$intra_webhook_close_update/g" data/config.yml
+    - sed -i "s/\$intra_webhook_location_close/$intra_webhook_location_close/g" data/config.yml
+    - sed -i "s/\$intra_webhook_location_create/$intra_webhook_location_create/g" data/config.yml
+    - sed -i "s/\$intra_webhook_location_destroy/$intra_webhook_location_destroy/g" data/config.yml
+    - sed -i "s/\$intra_webhook_point_given/$intra_webhook_point_given/g" data/config.yml
+    - sed -i "s/\$intra_webhook_scaleteam_create/$intra_webhook_scaleteam_create/g" data/config.yml
+    - sed -i "s/\$intra_webhook_scaleteam_delete/$intra_webhook_scaleteam_delete/g" data/config.yml
+    - sed -i "s/\$intra_webhook_scaleteam_update/$intra_webhook_scaleteam_update/g" data/config.yml
+    - sed -i "s/\$intra_webhook_projectsuser_update/$intra_webhook_projectsuser_update/g" data/config.yml
+    - sed -i "s/\$intra_webhook_transaction_create/$intra_webhook_transaction_create/g" data/config.yml
+    - sed -i "s/\$slack_42born2code_bot_token/$slack_42born2code_bot_token/g" data/config.yml
+    - sed -i "s/\$slack_42born2code_verif_token/$slack_42born2code_verif_token/g" data/config.yml
+    - sed -i "s/\$slack_42world_bot_token/$slack_42world_bot_token/g" data/config.yml
+    - sed -i "s/\$slack_42world_verif_token/$slack_42world_verif_token/g" data/config.yml
+    - sed -i "s/\$usb_key/$usb_key/g" data/config.yml
+    - sed -i "s/\$pwd_42mulhouse_tech/$pwd_42mulhouse_tech/g" data/config.yml
+    - sed -i "s/\$monitoring/$monitoring/g" data/config.yml
+    - sed -i "s/\$grafana_key/$grafana_key/g" data/config.yml
+    - sed -i "s/\$sgoinfre_key/$sgoinfre_key/g" data/config.yml
+    - sed -i "s/\$mario_key/$mario_key/g" data/config.yml
+    - sudo systemctl restart KMb0t.service
+  tags:
+    - kmb0t

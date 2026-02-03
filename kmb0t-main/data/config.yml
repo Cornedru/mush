@@ -1,0 +1,97 @@
+---
+
+gsheet:
+  tuteurs: '14vaMrWwpeepggh45WkLoN2c20mg_EZB-G9BbYc78WhY'
+  suiviBH: '1RsufRiHgSr-gUCRrZRmQvTx2WLQxndjdcvyAcqVHLhE'
+  promos:
+    - '1_fPH4JGe6zBjvx0LNOKqIJxdbJGti3vrX9A4kqM8-Y8'
+    - '1yYvb5N1C0EHFwuQTDpPHqJJNtcCs2ZmmEnfOT-NqI3o'
+    - '1vS76RuOfOUQhzsDi3FiYhpKNXcMek9lFFlck70mbh0I'
+    - '1MWKpbjXVDBZP2i_vuJiy5x3sJbd5Fg-byzX4naPCUB4'
+  stages: '1rXyLU-k9pvVjcIjhL2N1GJBbcWmlEc8s5nPUhaDaGIE'
+  stages_stud: '1t40IuevdNAK_QDHcWqPc6CIMa-deLPSbLB_uiMNphH4'
+
+infra:
+  homemaker_token: $homemaker_token
+  badgeuse_key: $badgeuse_key
+  usb_key: $usb_key
+  monitoring: $monitoring
+  grafana: $grafana_key
+  shop: $sgoinfre_key
+  mario_key: $mario_key
+
+intra:
+  api:
+    client: "u-s4t2af-253e700c1f9e42fbeca6888b5321a3e7a4037a48af31437ae66e3803bafde941"
+    secret: $intra_api_secret #https://profile.intra.42.fr/oauth/applications/14837
+    uri: "https://api.intra.42.fr/v2/oauth/token"
+    endpoint: "https://api.intra.42.fr/v2"
+    scopes: "public projects profile elearning tig forum"
+  max_points_corr: 42
+  coalitions:
+    artisans: 333
+    technicians: 334
+    analysts: 335
+    earth-kingdom: 558
+    water-tribes: 498
+    fire-nation: 499
+  pwd_42mulhouse_tech: $pwd_42mulhouse_tech
+    
+  webhook:
+    transaction_create: $intra_webhook_transaction_create 
+    close_create: $intra_webhook_close_create
+    close_update: $intra_webhook_close_update
+    scaleteam_create: $intra_webhook_scaleteam_create
+    scaleteam_delete: $intra_webhook_scaleteam_delete
+    scaleteam_update: $intra_webhook_scaleteam_update
+    point_given: $intra_webhook_point_given
+    location_create: $intra_webhook_location_create
+    location_close: $intra_webhook_location_close
+    location_destroy: $intra_webhook_location_destroy
+
+slack:
+  42world:
+    verif_token: $slack_42world_verif_token
+    bot_token: $slack_42world_bot_token
+    team_id: "T0NLZS5B8"
+    valid_channels:
+      - 'D03SD4D3KR8' #DM yohan
+      - 'C045S8B88JK' #CHANNEL _42mulhouse_kmb0t
+    admin_users:
+      - 'U021T69QT9R' #Yohan
+      - 'UQB208UHM' #Abel
+      - 'U02243L5HQR' #Caroline
+      - 'U0372SY962F' #Manie
+    staff_channel: "C037UA99DPA"
+    KMb0t_channel: "C045S8B88JK"
+    admin_DM: "D03SD4D3KR8"
+  42born2code:
+    verif_token: $slack_42born2code_verif_token
+    bot_token: $slack_42born2code_bot_token
+    team_id: "T039P7U66"
+    valid_channels:
+      - 'D06NE39G6HE' #DM yohan
+      - 'C06G22R15QE' #CHANNEL 42mulhouse_kmb0t
+      - 'C06APUR66KB' #CHANNEL 42mulhouse_campus
+      - 'C06RCJDLQJU' #CHANNEL badgeuse_channel
+      - 'C04R3NVSCLR' #CHANNEL support_channel
+    admin_users:
+      - 'U02H15353EC' #Yohan
+      - 'U0132E0Q929' #snow
+      - 'U06MR8ZML74' #KMb0t
+      - 'U06B094PV4N' #Bocal 42Mulhouse
+      - 'U04DDBS0AF7' #Caroline
+      - 'U073PETA7R7' #Jade
+      - 'U037FG2JF97' #Manie
+      - 'U073TJ5JU5N' #Allan
+    support_channel: "C04R3NVSCLR"
+    KMb0t_channel: "C06G22R15QE"
+    tuteurs_channel: "C06GB3R1X0C"
+    campus_channel: "C06APUR66KB"
+    badgeuse_channel: "C06RCJDLQJU"
+    error_channel: "C073X3JMRM0"
+    lifeguards_channel: "C076QJA3JEA"
+    general_channel: "C033SGKD7C4" #kmbot non présent dans le channel
+    jobs_channel: "C04MRF2PZ8E"
+    bocal_channel: "C07T8U51G04"
+    ft_wheel: "C093MP4GTSB"
